@@ -4,76 +4,68 @@
 
 ### SETUP WEB APPLICATION STACK
 
-__Vagrant profile project setup local__: 
 
-- We will deploy a stack on AWS and refactor it. Then we are going to containerize our applications, deploy the projects on kubernetes (k8s) cluster and many more. 
 
-- The reason for doing this project is to  set up our lab locally
+Setting up the vagrant profile project locally involves deploying and refactoring a stack on AWS, containerizing applications and deploying them on a kubernetes cluster. This project aims to establish a local lab environment.
 
-Tools to use to start up stack
+Tools needed:
 
-Hypervisor : Oracle Vm virtual box
+- Hypervisor: oracle VM virtualbox
 
-Automation : Vagrant 
+- Automation: Vagrant 
 
-Cli : Git Bash
+- CLI: Git Bash
 
-IDE : sublime text (Vs code, notepad ++)
+- IDE: Sublime Text (or Vs Code, Notepad++)
 
-We will need a hypervisor (oracle vm virtual box), which we are going to use to set up a virtual machine, but since this is going to be automated, we will use vagrant.
+Using Oracle VM VirtualBox, Vagrant, GitBash for automation and version control, and an IDE like Sublime text, we'll create and manage our project environment efficiently.
 
-And we need to execute some commands so we'll be using a command line tool. Git bash, which will be multipurpose for executing commands and also for version control.
 
-We can also use IDE, Vs code or anything else that you can use.
 
  __ARCHITECTURE OF PROJECT SERVICES__
 
 
-Nginx
+- Nginx
 
-Tomcat
+- Tomcat
 
-RabbitMQ
+- RabbitMQ
 
-Memcached
+- Memcached
 
-mySQL service
+- mySQL service
 
 __ARCHITECTURE DESIGN OF AUTOMATED SETUP__
 
 We have:
 
-Vagrant
+- Vagrant
 
-Virtual box
+- Virtual box
 
-Git bash and also some scripts and commands.
+- Git bash and also some scripts and commands.
 
 
 
 __FLOW OF STACK__
 
-The word stack is used for collection of services working together to create an experience. we will use Nginx to create load balancing experience.
 
-Nginx is a web service just like Apache httpd and its commonly used to create the load balancing experience.
+The term "stack" refers to a collection of services operating in tandem to deliver a unified experience. In our setup, we'll leverage Nginx for load balancing.
 
-In one of our vm we will be having Nginx service and we'll configure it in a way as soon as the request comes. it is going to route the request to the Tomcat server Apache
+Nginx, similar to Apache httpd, is a commonly used web service for facilitating load balancing. Within one of our virtual machines (VMs), we'll deploy Nginx and configure it to swiftly route incoming requests to the Apache Tomcat server.
 
-Apache Tomcat is a java web application service. Application will be here, the user will get a web page, the user will login, then the login details will be stored in mySQL database service.
+Apache Tomcat, a Java-based web application service, will host our application. Users will interact with this application, login with credentials, and have their login details stored in a MySQL database.
 
-RabbitMQ is a message broker or also called a queuing agent to connect to application together.
+To facilitate seamless communication between components, we'll utilize RabbitMQ, acting as a message broker to link various parts of the application.
 
-Application running in tomcat/apache is accessed by the users and the user will login with username and password, and when that happens our application will run mysql query to access the user information stored in mySQL database.
+When users access the application hosted on Tomcat/Apache, their login credentials trigger MySQL queries to retrieve user information stored in the database. Before reaching the MySQL database, requests will pass through a memcache service, a database caching layer connected to MySQL.
 
-Before it goes to mySQL database, the request will go to memcache service.
+MySQL will store user information, initially fetching data from the database to Tomcat and subsequently caching it in the memcache service. This caching mechanism ensures quicker access to data upon subsequent requests, similar to browser caching for web content.
 
-Memcache is a database caching, it will be connected with mySQL server.
+Automating our virtual machine setup, we'll employ Vagrant to interface with Oracle VM VirtualBox, the hypervisor, to provision virtual machines automatically. Utilizing bash scripts or commands, we'll configure and deploy our services within these virtual environments.
 
-MySQL server will store the user information when the first time the request comes to the database mysql, it will be sent from mySQL server to Tomcat and then it will be cached to the cache server. So next time a request comes, the same request comes. it will be accessing the data which is cached in cash service just like you have browser cache, we also have database caching.
 
-We will be using vagrant to automatically set up our virtual machine. So vagrant is going to communicate with oracle vm virtual box, which is the hypervisor and create automatically virtual machines on that. Then we will be using some bash scripts or bash commands to set up our services.
-
-- Vagrant--virtualbox--Git Bash==Nginx, Apache, Tomcat, Memcached, RabbitMQ, mySQL.
+Vagrant--virtualbox--Git Bash==Nginx, Apache, Tomcat, Memcached, RabbitMQ, mySQL.
 
 So we will automatically create virtual machines from Vagrant, Virtual machines for Nginix, Apache Tomcat, Memcache, RabbitMQ and mySQL
 
