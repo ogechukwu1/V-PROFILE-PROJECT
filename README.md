@@ -25,6 +25,16 @@ Using Oracle VM VirtualBox, Vagrant, GitBash for automation and version control,
  __ARCHITECTURE OF PROJECT SERVICES__
 
 
+
+
+![](./images/75.png)
+
+
+
+
+
+
+
 - Nginx
 
 - Tomcat
